@@ -1,4 +1,7 @@
 ---
+import '../../styles/global.css';
+import SiteHeader from '../../components/SiteHeader.astro';
+import SiteFooter from '../../components/SiteFooter.astro';
 const title = "犬の嘔吐、様子見していい場合・病院に行くべき場合の見分け方";
 const description = "愛犬が吐いたとき、慌てず様子を見ていい状況と、すぐに動物病院を受診すべき状況の見分け方を、獣医療の現場経験をもとに解説します。";
 const publishDate = "2026-09-23";
@@ -12,13 +15,20 @@ const publishDate = "2026-09-23";
     <title>{title}</title>
   </head>
   <body>
-    <header>
-      <a href="/">← Pet Health Blog トップへ</a>
-    </header>
-
+    <SiteHeader />
+    <main id="main" class="page">
+      <nav class="breadcrumbs" aria-label="パンくずリスト">
+        <ol><li><a href="/">ホーム</a></li><li><span>犬の健康</span></li><li aria-current="page">犬が吐いたとき</li></ol>
+      </nav>
     <article>
-      <h1>{title}</h1>
-      <p><time datetime={publishDate}>{publishDate}</time></p>
+      <header>
+        <p class="category">犬の健康</p>
+        <h1 class="article-title"><span>犬が吐いたとき、</span><span>様子を見ていい？</span><span>病院へ行くべき？</span></h1>
+        <p class="subtitle">慌てず確認したい、愛犬の体調と受診の目安。</p>
+        <p class="date"><time datetime={publishDate}>{publishDate.replaceAll('-', '.')}</time></p>
+      </header>
+      <img class="hero-image" src="/images/dog-resting.jpg" alt="飼い主にやさしくなでられながら、ソファでくつろぐ犬" width="1860" height="845" fetchpriority="high" />
+      <div class="article-body">
 
       <p>
         愛犬が突然吐いてしまうと、飼い主さんはとても不安になりますよね。
@@ -26,6 +36,8 @@ const publishDate = "2026-09-23";
         「すぐに動物病院を受診すべきケース」があります。
         この記事では、動物病院での勤務経験をもとに、その見分け方をわかりやすく解説します。
       </p>
+
+      <aside class="care-note">不安なときは、かかりつけの動物病院へご相談ください。</aside>
 
       <h2>まず知っておきたい、犬が吐きやすい理由</h2>
       <p>
@@ -82,10 +94,9 @@ const publishDate = "2026-09-23";
         少しでも様子がおかしいと感じたら、自己判断で様子を見続けず、
         早めに動物病院に相談しましょう。
       </p>
+      </div>
     </article>
-
-    <footer>
-      <a href="/">← トップへ戻る</a>
-    </footer>
+    </main>
+    <SiteFooter />
   </body>
 </html>

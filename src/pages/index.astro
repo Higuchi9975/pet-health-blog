@@ -1,4 +1,7 @@
 ---
+import '../styles/global.css';
+import SiteHeader from '../components/SiteHeader.astro';
+import SiteFooter from '../components/SiteFooter.astro';
 const title = "Pet Health Blog";
 ---
 <!doctype html>
@@ -9,14 +12,27 @@ const title = "Pet Health Blog";
     <title>{title}</title>
   </head>
   <body>
-    <h1>{title}</h1>
-    <p>ペットの健康・病気について、獣看護師としての経験を交えて発信していくブログです。</p>
-
-    <h2>記事一覧</h2>
-    <ul>
-      <li>
-        <a href="/blog/dog-vomiting/">犬の嘔吐、様子見していい場合・病院に行くべき場合の見分け方</a>
-      </li>
-    </ul>
+    <SiteHeader />
+    <main id="main" class="page">
+      <header class="home-intro">
+        <p class="category">ペットと、健やかな毎日を。</p>
+        <h1>大切な家族の健康を、<br />いっしょに考える。</h1>
+        <p>ペットの健康・病気について、わかりやすくお届けします。</p>
+      </header>
+      <section id="articles" aria-labelledby="articles-title">
+        <h2 id="articles-title" class="section-title">記事一覧</h2>
+        <a class="article-preview" href="/blog/dog-vomiting/">
+          <img src="/images/dog-resting.jpg" alt="ソファでくつろぐ犬" width="1860" height="845" />
+          <p class="date">犬の健康 ・ <time datetime="2026-09-23">2026.09.23</time></p>
+          <h3>犬が吐いたとき、様子を見ていい？<br />病院へ行くべき？</h3>
+          <span>記事を読む →</span>
+        </a>
+      </section>
+      <section id="about" class="about" aria-labelledby="about-title">
+        <h2 id="about-title" class="section-title">このサイトについて</h2>
+        <p>ペットの健康・病気について、獣看護師としての経験を交えて発信していくブログです。</p>
+      </section>
+    </main>
+    <SiteFooter />
   </body>
 </html>
