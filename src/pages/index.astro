@@ -1,20 +1,10 @@
 ---
-import '../styles/global.css';
-import SiteHeader from '../components/SiteHeader.astro';
-import SiteFooter from '../components/SiteFooter.astro';
+import SiteLayout from '../layouts/SiteLayout.astro';
+import { getPublishedPosts } from '../lib/posts';
+const posts = await getPublishedPosts();
 const title = "Pet Health Blog";
 ---
-<!doctype html>
-<html lang="ja">
-  <head>
-    <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <meta name="viewport" content="width=device-width" />
-    <title>{title}</title>
-  </head>
-  <body>
-    <SiteHeader />
-    <main id="main" class="page">
+<SiteLayout title={title}>
       <header class="home-intro">
         <p class="category">ペットと、健やかな毎日を。</p>
         <h1>大切な家族の健康を、<br />いっしょに考える。</h1>
@@ -22,18 +12,15 @@ const title = "Pet Health Blog";
       </header>
       <section id="articles" aria-labelledby="articles-title">
         <h2 id="articles-title" class="section-title">記事一覧</h2>
-        <a class="article-preview" href="/blog/dog-vomiting/">
-          <img src="/images/dog-resting.jpg" alt="ソファでくつろぐ犬" width="1860" height="845" />
-          <p class="date">犬の健康 ・ <time datetime="2026-09-23">2026.09.23</time></p>
-          <h3>犬が吐いたとき、様子を見ていい？<br />病院へ行くべき？</h3>
+        {posts.map(({ slug, data }) => <a class="article-preview" href={`/blog/${slug}/`}>
+          {data.image && <img src={data.image.src} alt={data.image.alt} width={data.image.width} height={data.image.height} loading="lazy" />}
+          <p class="date">{data.category} ・ <time datetime={data.publishDate}>{data.publishDate.replaceAll('-', '.')}</time></p>
+          <h3>{data.titleLines?.join('') ?? data.title}</h3>
           <span>記事を読む →</span>
-        </a>
+        </a>)}
       </section>
       <section id="about" class="about" aria-labelledby="about-title">
         <h2 id="about-title" class="section-title">このサイトについて</h2>
         <p>ペットの健康・病気について、獣看護師としての経験を交えて発信していくブログです。</p>
       </section>
-    </main>
-    <SiteFooter />
-  </body>
-</html>
+</SiteLayout>

@@ -1,0 +1,22 @@
+---
+import type { CollectionEntry } from 'astro:content';
+import SiteLayout from './SiteLayout.astro';
+interface Props { post: CollectionEntry<'blog'>; }
+const { post } = Astro.props;
+const { title, description, category, titleLines, breadcrumbTitle, subtitle, publishDate, image } = post.data;
+---
+<SiteLayout title={title} description={description}>
+  <nav class="breadcrumbs" aria-label="パンくずリスト">
+    <ol><li><a href="/">ホーム</a></li><li><span>{category}</span></li><li aria-current="page">{breadcrumbTitle ?? title}</li></ol>
+  </nav>
+  <article>
+    <header>
+      <p class="category">{category}</p>
+      <h1 class="article-title">{titleLines ? titleLines.map((line) => <span>{line}</span>) : title}</h1>
+      {subtitle && <p class="subtitle">{subtitle}</p>}
+      <p class="date"><time datetime={publishDate}>{publishDate.replaceAll('-', '.')}</time></p>
+    </header>
+    {image && <img class="hero-image" src={image.src} alt={image.alt} width={image.width} height={image.height} fetchpriority="high" />}
+    <div class:list={['article-body', { 'article-body-without-image': !image }]}><slot /></div>
+  </article>
+</SiteLayout>
