@@ -5,7 +5,7 @@ interface Props { post: CollectionEntry<'blog'>; }
 const { post } = Astro.props;
 const { title, description, category, titleLines, breadcrumbTitle, subtitle, publishDate, image } = post.data;
 ---
-<SiteLayout title={title} description={description}>
+<SiteLayout title={title} description={description} ogType="article">
   <nav class="breadcrumbs" aria-label="パンくずリスト">
     <ol><li><a href="/">ホーム</a></li><li><span>{category}</span></li><li aria-current="page">{breadcrumbTitle ?? title}</li></ol>
   </nav>
