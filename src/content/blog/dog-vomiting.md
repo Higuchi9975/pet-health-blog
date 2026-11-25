@@ -10,10 +10,10 @@ titleLines:
 breadcrumbTitle: "犬が吐いたとき"
 subtitle: "慌てず確認したい、愛犬の体調と受診の目安。"
 image:
-  src: "/images/dog-resting.jpg"
-  alt: "飼い主にやさしくなでられながら、ソファでくつろぐ犬"
-  width: 1860
-  height: 845
+  src: "/images/dog-vomiting-hero.jpg"
+  alt: "体調が悪そうに、ぐったりと横になっている犬のイラスト"
+  width: 1760
+  height: 800
 draft: false
 ---
 
