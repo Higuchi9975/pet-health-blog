@@ -12,6 +12,7 @@ const title = "Pet Health Blog";
       </header>
       <section id="articles" aria-labelledby="articles-title">
         <h2 id="articles-title" class="section-title">記事一覧</h2>
+        {posts.length === 0 && <p>ただいま記事を見直し中です。準備ができたものから順番に公開していきます。</p>}
         {posts.map(({ slug, data }) => <a class="article-preview" href={`/blog/${slug}/`}>
           {data.image && <img src={data.image.src} alt={data.image.alt} width={data.image.width} height={data.image.height} loading="lazy" />}
           <p class="date">{data.category} ・ <time datetime={data.publishDate}>{data.publishDate.replaceAll('-', '.')}</time></p>
@@ -21,6 +22,6 @@ const title = "Pet Health Blog";
       </section>
       <section id="about" class="about" aria-labelledby="about-title">
         <h2 id="about-title" class="section-title">このサイトについて</h2>
-        <p>ペットの健康・病気について、獣看護師としての経験を交えて発信していくブログです。</p>
+        <p>ペットの健康・病気について、愛玩動物看護師のもるが、動物病院での経験をもとに発信していくブログです。</p>
       </section>
 </SiteLayout>
