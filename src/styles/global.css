@@ -85,7 +85,7 @@ h1 { margin: 0; color: var(--green); font-size: clamp(32px, 4.7vw, 54px); line-h
   .category { margin-bottom: 20px; font-size: 13px; }
   h1 { font-size: clamp(27px, 7.5vw, 40px); letter-spacing: 0; line-height: 1.55; }
   .subtitle { margin-top: 22px; }
-  .hero-image { margin: 28px 0 32px; aspect-ratio: 1.65 / 1; object-position: 65% center; border-radius: 8px; }
+  .hero-image { margin: 28px 0 32px; border-radius: 8px; }
   .article-body { font-size: 16px; line-height: 2; }
   .article-body h2 { margin-top: 40px; padding-top: 22px; }
   .care-note { font-size: 13px; padding: 14px 16px; }
