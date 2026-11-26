@@ -1,13 +1,15 @@
 ---
 import type { CollectionEntry } from 'astro:content';
+import type { MarkdownHeading } from 'astro';
 import SiteLayout from './SiteLayout.astro';
-interface Props { post: CollectionEntry<'blog'>; }
-const { post } = Astro.props;
+interface Props { post: CollectionEntry<'blog'>; headings?: MarkdownHeading[]; }
+const { post, headings = [] } = Astro.props;
+const tocItems = headings.filter((h) => h.depth === 2 || h.depth === 3);
 const { title, description, category, titleLines, breadcrumbTitle, subtitle, publishDate, image } = post.data;
 ---
 <SiteLayout title={title} description={description} ogType="article">
-  <nav class="breadcrumbs" aria-label="パンくずリスト">
-    <ol><li><a href="/">ホーム</a></li><li><span>{category}</span></li><li aria-current="page">{breadcrumbTitle ?? title}</li></ol>
+  <nav class="breadcrumbs" aria-label="パンくずリスト" slot="breadcrumb">
+    <ol><li><a href="/">ホーム</a></li><li><a href={`/category/${encodeURIComponent(category)}/`}>{category}</a></li><li aria-current="page">{breadcrumbTitle ?? title}</li></ol>
   </nav>
   <article>
     <header>
@@ -17,6 +19,19 @@ const { title, description, category, titleLines, breadcrumbTitle, subtitle, pub
       <p class="date"><time datetime={publishDate}>{publishDate.replaceAll('-', '.')}</time></p>
     </header>
     {image && <img class="hero-image" src={image.src} alt={image.alt} width={image.width} height={image.height} fetchpriority="high" />}
+    {tocItems.length > 1 && (
+      <nav class="toc" id="toc" aria-label="目次">
+        <p class="toc-title">目次</p>
+        <ol>
+          {tocItems.map((h) => <li class={`toc-depth-${h.depth}`}><a href={`#${h.slug}`}>{h.text}</a></li>)}
+        </ol>
+      </nav>
+    )}
     <div class:list={['article-body', { 'article-body-without-image': !image }]}><slot /></div>
+    <script>
+      const toc = document.getElementById('toc');
+      const firstH2 = document.querySelector('.article-body h2');
+      if (toc && firstH2) firstH2.before(toc);
+    </script>
   </article>
 </SiteLayout>

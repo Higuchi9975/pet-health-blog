@@ -1,0 +1,34 @@
+---
+import type { GetStaticPaths } from 'astro';
+import SiteLayout from '../../layouts/SiteLayout.astro';
+import { getPublishedPosts } from '../../lib/posts';
+
+export const getStaticPaths = (async () => {
+  const posts = await getPublishedPosts();
+  const categories = [...new Set(posts.map((post) => post.data.category))];
+  return categories.map((category) => ({
+    params: { category },
+    props: { category, posts: posts.filter((post) => post.data.category === category) },
+  }));
+}) satisfies GetStaticPaths;
+
+const { category, posts } = Astro.props;
+const title = `${category}の記事一覧 | Pet Health Blog`;
+---
+<SiteLayout title={title} description={`「${category}」の記事一覧です。`}>
+  <nav class="breadcrumbs" aria-label="パンくずリスト" slot="breadcrumb">
+    <ol><li><a href="/">ホーム</a></li><li aria-current="page">{category}</li></ol>
+  </nav>
+  <header class="home-intro">
+    <p class="category">カテゴリー</p>
+    <h1>{category}</h1>
+  </header>
+  <section aria-label="記事一覧">
+    {posts.map(({ slug, data }) => <a class="article-preview" href={`/blog/${slug}/`}>
+      {data.image && <img src={data.image.src} alt={data.image.alt} width={data.image.width} height={data.image.height} loading="lazy" />}
+      <p class="date">{data.category} ・ <time datetime={data.publishDate}>{data.publishDate.replaceAll('-', '.')}</time></p>
+      <h3>{data.titleLines?.join('') ?? data.title}</h3>
+      <span>記事を読む →</span>
+    </a>)}
+  </section>
+</SiteLayout>
