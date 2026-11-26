@@ -11,7 +11,7 @@ breadcrumbTitle: "犬の腎臓病の初期症状"
 subtitle: "見逃しやすいサインと、ごはん選びの考え方。"
 image:
   src: "/images/kidney-hero.jpg"
-  alt: "水を飲んでいる犬のイラストと「犬の腎臓病 初期症状は？ ごはん選び」の文字"
+  alt: "水の器のそばで元気なく伏せている犬のイラストと「犬の腎臓病 初期症状は？ ごはん選び」の文字"
   width: 1760
   height: 800
 draft: false
